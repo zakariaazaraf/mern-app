@@ -1,8 +1,20 @@
 const express = require('express')
-const route = express.Router()
+const router = express.Router()
 
-route.get('/authors', (req, res) =>{
-    res.send('Hi There You Have Visited Authors Route')
+// ALL AUTHORS ROUTER
+router.get('/', (req, res) =>{
+    /* res.send('Hi There You Have Visited Authors Route') */
+    res.render('authors/index')
 })
 
-module.exports = route
+// NEW AUTHOR ROUTER
+router.get('/new', (req, res) => {
+    res.render('authors/new')
+})
+
+// CREATE AUTHOR ROUTER
+router.post('/', (req, res) => {
+    res.send('Author Created')
+})
+
+module.exports = router

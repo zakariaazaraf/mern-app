@@ -18,8 +18,8 @@ router.get('/', (req, res) =>{
 
     }) */
 
-    /* res.render('index') */
-    res.render('test')
+    res.render('index')
+    
 })
 
 module.exports = router
