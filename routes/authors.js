@@ -1,6 +1,9 @@
 const express = require('express')
 const router = express.Router()
 
+// REQUIRE THE AUTHOR MODEL FROM THE MODELS
+const Author = require('../models/author')
+
 // ALL AUTHORS ROUTER
 router.get('/', (req, res) =>{
     /* res.send('Hi There You Have Visited Authors Route') */
@@ -9,12 +12,13 @@ router.get('/', (req, res) =>{
 
 // NEW AUTHOR ROUTER
 router.get('/new', (req, res) => {
-    res.render('authors/new')
+    // RENDER THE VIEW INCLUDING THE AUTHOR MODEL TO USE IT
+    res.render('authors/new', {Author: new Author()})
 })
 
 // CREATE AUTHOR ROUTER
 router.post('/', (req, res) => {
-    res.send('Author Created')
+    res.send(req.body)
 })
 
 module.exports = router

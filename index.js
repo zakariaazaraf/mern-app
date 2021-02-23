@@ -8,6 +8,7 @@ const express = require('express')
 const app = express()
 
 const expressLayouts = require('express-ejs-layouts')
+const bodyParser = require('body-parser')
 
 // IMPORT ROUTES
 const indexRouter = require('./routes/indexRoute.js')
@@ -19,6 +20,9 @@ app.set('views', __dirname + "/views")
 app.set('layout', 'layouts/layout')
 app.use(expressLayouts)
 app.use(express.static('public'))
+
+// HANDEL THE BOSY-PARSER
+app.use(bodyParser.urlencoded({limit: '10mb', extended: true}))
 
 // SETUP THE DATABASE REQUIREMENT
 const mongoose = require('mongoose')
