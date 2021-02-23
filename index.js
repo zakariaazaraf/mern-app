@@ -9,8 +9,9 @@ const app = express()
 
 const expressLayouts = require('express-ejs-layouts')
 
-// IMPORT INDEX ROUTER
+// IMPORT ROUTES
 const indexRouter = require('./routes/indexRoute.js')
+const authorsRouter = require('./routes/authors')
 
 app.set('view engine', 'ejs')
 app.set('views', __dirname + "/views")
@@ -26,5 +27,6 @@ db.once('open', () => console.log('Connected To DB'))
 
 app.get('/', indexRouter /* () => console.log('root visited') */)
 app.get('/shoop', () => console.log('shoop Visited'))
+app.get('/authors', authorsRouter)
 
 app.listen(process.env.PORT || 3000, () => console.log(`server starts on ${3000}`))
