@@ -1,23 +1,49 @@
 <h2>Add New Book</h2>
-<form>
-    <label for='title'>title :</label>
-    <input type='text' name='title' id='title' value=''/>
+<form action='/books' method='POST' enctype='multipart/form-data'>
+    <div>
+        <label for='title'>title :</label>
+        <input type='text' name='title' id='title' value='<%= book.title %>'/>
+    </div>
 
-    <label for='author'>author :</label>
-    <select name='author' id='author'>
-        <option value=''>flan</option>
-        <option value=''>3artlan</option>
-    </select>
+    <div>
+        <label for='author'>author :</label>
+        <select name='author' id='author'>
 
-    <label for="publish-date">publish date:</label>
-    <input type='date' name='publishDate' id='publish-date' value=''>
+            <% authors.forEach(author => {
+                %>
+                    <option value='<%= author.id %>'><%= author.name %></option>
+                <%
+            }) %>
+            <option value=''>flan</option>
+            <option value=''>3artlan</option>
+        </select>
+    </div>
 
-    <label for='pages'>page count:</label>
-    <input type='number' name='pages' id='pages' value=''>
+    <div>
 
-    <label for=''>cover image</label>
-    <input type='file'>
+        <label for="publish-date">publish date:</label>
+        <input type='date' name='publishDate' id='publish-date' value='<%= book.publishDate%>'>
+    </div>
 
-    <label for='description'>description</label>
-    <textarea name='description' id='description' value=''></textarea>
+    <div>
+
+        <label for='pages'>page count:</label>
+        <input type='number' name='pages' id='pages' min='1' value='<%= book.pages%>'>
+    </div>
+
+    <div>
+        <label for='cover'>cover image</label>
+        <input type='file' name='cover' id='cover'>
+
+    </div>
+
+    <div>
+        <label for='description'>description</label>
+        <textarea name='description' id='description'><%= book.description %></textarea>
+    </div>
+
+    <div>
+        <button type='submit'>create</button>
+        <button type='reset'>Cancel</button>
+    </div>
 </form>

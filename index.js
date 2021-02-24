@@ -9,6 +9,17 @@ const app = express()
 
 const expressLayouts = require('express-ejs-layouts')
 const bodyParser = require('body-parser')
+/* const path = require('path')
+const Book = require('./models/book')
+const uploadPath = path.join('public', Book.coverImagesBasePath)
+const imageMimeTypes = ['image/png', 'image/jpeg', 'image/gif']
+const multer = require('multer')
+const upload = multer({
+    dest: uploadPath, // Destination WHERE TO UPLOAD IMAGES
+    fileFilter: (req, file, callback) =>{
+        callback(null, imageMimeTypes.includes(file.mimetype))
+    }
+}) */ // CONFEGERATE HOW TO USE MULETR IN THE APP
 
 // IMPORT ROUTES
 const indexRouter = require('./routes/indexRoute.js')
