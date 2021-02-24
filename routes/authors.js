@@ -7,9 +7,21 @@ const Author = require('../models/author')
 // ALL AUTHORS ROUTER
 router.get('/', async (req, res) =>{
 
+    const serachName = {}
+    // CHECK THE REQUEST IF INCLUDES SsearchNAME PARAMA
+    /* console.log("Method ", req.method)
+    console.log("Query", req.query) */
+
+    if(req.method === 'GET' && req.query.author !== ''){
+        /* searchName.name = req.query.author */
+        serachName.name = new RegExp(req.query.author, 'i')
+    }
     try {
-        const authors = await Author.find({}) // .find({}) THIS MEANS WITHOUT ANY CONDITION
-        res.render('authors/index', {authors: authors}) // YOU LOOP IN "authors" TO DESPLY EACH AUTHOR
+        const authors = await Author.find(serachName) // .find({}) THIS MEANS WITHOUT ANY CONDITION
+        res.render('authors/index', {
+            authors: authors, // YOU LOOP IN "authors" TO DESPLY EACH AUTHOR
+            searchName: req.query // Send The Query Which Include The Params
+        }) 
     } catch {
         res.redirect('/')
     }
