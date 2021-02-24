@@ -7,7 +7,7 @@ const multer = require('multer')
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
-    cb(null, './uploads');
+    cb(null, './public/uploads');
   },
   filename: function(req, file, cb) {
     cb(null, file.originalname);
@@ -47,7 +47,7 @@ router.post('/', upload.single('cover')/*WE WANT TO UPLOAD A FILE WITH NAME OF '
         res.redirect(`books`)
     } catch  {
         renderBookPage(res, book, true)
-        res.redirect('/')
+        //res.redirect('/')
     }
 })
 
