@@ -4,11 +4,12 @@ const router = express.Router()
 const Books = require('../models/book')
 
 router.get('/', (req, res)=>{
-    res.send('Root Books')
+    /* res.send('Root Books') */
+    res.render('../views/books/index.ejs', {})
 })
 
 router.get('/new', (req, res)=>{
-    res.send('New Book')
+    res.render('../views/books/new.ejs')
 })
 
 router.post('/', (req, res)=>{
