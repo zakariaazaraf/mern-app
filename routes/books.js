@@ -4,28 +4,15 @@ const router = express.Router()
 const Books = require('../models/book')
 const Author = require('../models/author')
 const multer = require('multer')
-const path = require('path')
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
     cb(null, './uploads');
   },
   filename: function(req, file, cb) {
-    cb(null, new Date().toISOString() + file.originalname);
+    cb(null, file.originalname);
   }
 });
-
-/* const path = require('path')
-const Book = require('../models/book')
-const uploadPath = path.join('../public', Book.coverImagesBasePath)
-const imageMimeTypes = ['image/png', 'image/jpeg', 'image/gif']
-
-const upload = multer({
-    dest: uploadPath, // Destination WHERE TO UPLOAD IMAGES
-    fileFilter: (req, file, callback) =>{
-        callback(null, imageMimeTypes.includes(file.mimetype))
-    }
-}) */
 
 const upload = multer({storage: storage})
 
@@ -74,7 +61,5 @@ const renderBookPage = async (res, book, hasError = false) =>{
         res.redirect('/')
     }
 }
-
-
 
 module.exports = router
