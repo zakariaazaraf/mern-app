@@ -5,9 +5,16 @@ const router = express.Router()
 const Author = require('../models/author')
 
 // ALL AUTHORS ROUTER
-router.get('/', (req, res) =>{
+router.get('/', async (req, res) =>{
+
+    try {
+        const authors = await Author.find({}) // .find({}) THIS MEANS WITHOUT ANY CONDITION
+        res.render('authors/index', {authors: authors}) // YOU LOOP IN "authors" TO DESPLY EACH AUTHOR
+    } catch {
+        res.redirect('/')
+    }
     /* res.send('Hi There You Have Visited Authors Route') */
-    res.render('authors/index')
+    
 })
 
 // NEW AUTHOR ROUTER
