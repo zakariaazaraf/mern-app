@@ -13,6 +13,7 @@ const bodyParser = require('body-parser')
 // IMPORT ROUTES
 const indexRouter = require('./routes/indexRoute.js')
 const authorsRouter = require('./routes/authors.js')
+const booksRouter = require('./routes/books')
 
 // CONFEGERING THE ESJ ENGINE 
 app.set('view engine', 'ejs')
@@ -32,7 +33,8 @@ db.on('error', error => console.error(error))
 db.once('open', () => console.log('Connected To DB'))
 
 // HANDELING THE ROUTERS
-app.use('/', indexRouter /* () => console.log('root visited') */)
+app.use('/', indexRouter)
 app.use('/authors', authorsRouter)
+app.use('/books', booksRouter)
 
 app.listen(process.env.PORT || 3000, () => console.log(`server starts on ${3000}`))
