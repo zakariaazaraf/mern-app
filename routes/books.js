@@ -4,6 +4,8 @@ const router = express.Router()
 const Book = require('../models/book')
 const Author = require('../models/author')
 const multer = require('multer')
+const fs = require('fs')
+
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -22,7 +24,8 @@ router.get('/', async (req, res)=>{
     try {
         const books = await Book.find({})
         res.render('books/index', {books: books})
-        console.log(books)
+        //res.render('./../public/uploads/')
+        /* console.log('Root', books) */
     } catch {
         res.redirect(`/books`)
     }
@@ -50,17 +53,22 @@ router.post('/', upload.single('cover')/*WE WANT TO UPLOAD A FILE WITH NAME OF '
         coverImageName: req.file.filename
     })
 
-    console.log(title, author, publishDate, pages, description, req.file.filename)
+    //console.log(title, author, publishDate, pages, description, req.file.filename)
+    //console.log(req)
 
     try {
         const newBook = await book.save()
         /* res.redirect(`books/${newBook.id}`) */
         res.redirect(`books`)
         console.log("Book Created")
-    } catch (err) {
+    } catch {
+
+        if(req.file.filename != null){
+            // REMOVE THE IMAGE IF THERE's AN ERROR
+            removerCoverImage(req.file.originalname)
+        }
         renderBookPage(res, book, true)
-        //res.redirect('/')
-        console.log(err)
+        
     }
 })
 
@@ -70,9 +78,19 @@ const renderBookPage = async (res, book, hasError = false) =>{
         params = {authors: authors, book: book}
         if(hasError)  params.errorMessage = 'Error Creating Book'
         res.render('../views/books/new.ejs', params)
-    }catch{
+    }catch (err){        
         res.redirect('/')
     }
+}
+
+const removerCoverImage = (fileName) =>{
+    fs.unlink('./public/uploads/' + fileName, (err) =>{
+        if(err){
+            console.error(err)
+            return
+        }
+        console.log('File Removed')
+    })
 }
 
 module.exports = router
