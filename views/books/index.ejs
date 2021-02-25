@@ -4,3 +4,11 @@
     <input type='text' name='book' id='book' value=''>
     <button type='submit'></button>
 </form>
+
+<% books.forEach(book=>{
+    %>
+    <div>
+        <%= book.title %>
+        <img src='./uploads/<%= book.coverImageName%>'>
+    </div>
+    <% })%>

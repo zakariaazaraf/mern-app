@@ -8,10 +8,6 @@ const Author = require('../models/author')
 router.get('/', async (req, res) =>{
 
     const serachName = {}
-    // CHECK THE REQUEST IF INCLUDES SsearchNAME PARAMA
-    /* console.log("Method ", req.method)
-    console.log("Query", req.query) */
-
     if(req.method === 'GET' && req.query.author !== ''){
         /* searchName.name = req.query.author */
         serachName.name = new RegExp(req.query.author, 'i')
@@ -24,8 +20,7 @@ router.get('/', async (req, res) =>{
         }) 
     } catch {
         res.redirect('/')
-    }
-    /* res.send('Hi There You Have Visited Authors Route') */
+    }    
     
 })
 

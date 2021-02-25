@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const Books = require('../models/book')
+const Book = require('../models/book')
 const Author = require('../models/author')
 const multer = require('multer')
 
@@ -16,13 +16,21 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage: storage})
 
-router.get('/', (req, res)=>{
-    /* res.send('Root Books') */
-    res.render('../views/books/index.ejs', {})
+router.get('/', async (req, res)=>{
+
+    const serachName = {}
+    try {
+        const books = await Book.find({})
+        res.render('books/index', {books: books})
+        console.log(books)
+    } catch {
+        res.redirect(`/books`)
+    }
+   
 })
 
 router.get('/new', async (req, res)=>{
-    renderBookPage(res, new Books())
+    renderBookPage(res, new Book())
 })
 
 router.post('/', upload.single('cover')/*WE WANT TO UPLOAD A FILE WITH NAME OF 'cover' */, async (req, res)=>{
@@ -31,23 +39,28 @@ router.post('/', upload.single('cover')/*WE WANT TO UPLOAD A FILE WITH NAME OF '
 
     const {title, author, publishDate, pages, cover, description} = req.body
 
-    const book = new Books({
+    const book = new Book({
         title: title,
         description: description,
         author, author,
-        pusblishDate: new Date(publishDate), // TO CONVERT THE DATE STRING CAME FROM THE REQEST
+        createdAt: new Date(publishDate),
+        publishDate: new Date(publishDate), // TO CONVERT THE DATE STRING CAME FROM THE REQEST
         pages: pages,
         /* coverImageName: cover */
-        coverImageName: req.file.path
+        coverImageName: req.file.filename
     })
+
+    console.log(title, author, publishDate, pages, description, req.file.filename)
 
     try {
         const newBook = await book.save()
         /* res.redirect(`books/${newBook.id}`) */
         res.redirect(`books`)
-    } catch  {
+        console.log("Book Created")
+    } catch (err) {
         renderBookPage(res, book, true)
         //res.redirect('/')
+        console.log(err)
     }
 })
 
