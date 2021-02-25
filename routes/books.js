@@ -20,12 +20,15 @@ const upload = multer({storage: storage})
 
 router.get('/', async (req, res)=>{
 
-    const serachName = {}
+    const searchName = {}
     try {
-        const books = await Book.find({})
-        res.render('books/index', {books: books})
-        //res.render('./../public/uploads/')
-        /* console.log('Root', books) */
+        console.log(req.query)
+        if(req.method === 'GET' && req.query.title !== ''){
+            searchName.title = new RegExp(req.query.title, 'i')
+        }
+        if(req.query.title != '') searchName.title = req.query.title
+        const books = await Book.find(searchName.title ? searchName : {})
+        res.render('books/index', {books: books, searchName: req.query})
     } catch {
         res.redirect(`/books`)
     }

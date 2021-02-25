@@ -1,8 +1,20 @@
-<h2>All Books</h2>
+<h2>Search Book</h2>
 <form action='/books' methos='GET'>
-    <label for='book'>Book: </label>
-    <input type='text' name='book' id='book' value=''>
-    <button type='submit'></button>
+    <div>
+        <label for='title'>Title: </label>
+        <input type='text' name='title' id='title' value='<%= searchName.title %>'>
+    </div>
+
+    <div> 
+        <label for='publishAfter'>Publish after</label>
+        <input type='date' name='publishAfter' id='publishAfter' value=''>
+    </div>
+
+    <div> 
+        <label for='publishBefore'>Publish before</label>
+        <input type='date' name='publishBefore' id='publishBefore' value=''>
+    </div>
+    <button type='submit'>Search</button>
 </form>
 
 <% books.forEach(book=>{
