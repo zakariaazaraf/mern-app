@@ -22,12 +22,20 @@ router.get('/', async (req, res)=>{
 
     const searchName = {}
     try {
-        console.log(req.query)
-        if(req.method === 'GET' && req.query.title !== ''){
-            searchName.title = new RegExp(req.query.title, 'i')
+        
+        const {title, publishAfter, publishBefore} = req.query
+        let query = Book.find() // FILTER THE QUERY
+        if(title !== '' && title != null){
+            query = query.regex('title', new RegExp(title, 'i'))
         }
-        if(req.query.title != '') searchName.title = req.query.title
-        const books = await Book.find(searchName.title ? searchName : {})
+        if(publishAfter !== '' && publishAfter != null){
+            query = query.gte('publishDate', publishAfter)
+        }
+        if(publishBefore !== '' && publishBefore != null){
+            query = query.lte('publishDate', publishBefore)
+        }
+        
+        const books = await query.exec()
         res.render('books/index', {books: books, searchName: req.query})
     } catch {
         res.redirect(`/books`)
