@@ -1,7 +1,8 @@
 const express = require('express')
 const router = express.Router()
+const Book  = require('./../models/book')
 
-router.get('/', (req, res) =>{
+router.get('/', async (req, res) =>{
     /* res.send({
         req: req.method,
         message: 'hello you visted the root',
@@ -17,8 +18,15 @@ router.get('/', (req, res) =>{
         hostname: req.hostname
 
     }) */
+    let books 
+    try {
+         books = await Book.find().sort({createdAt: 'desc'}).limit(10)
+    } catch (error) {
+        books = []
+        console.log(error)
+    }
 
-    res.render('index')
+    res.render('index', {books: books})
     
 })
 

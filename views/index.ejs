@@ -1,1 +1,9 @@
-Render The Body
+<h2>Recently added</h2>
+<div>
+    <% books.forEach(book =>{
+        %>  
+            <h4><%= book.title %></h4>
+            <img src='uploads/<%= book.coverImageName %>'>
+        <%
+    })%>
+</div>
