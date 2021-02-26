@@ -3,20 +3,9 @@ const router = express.Router()
 
 const Book = require('../models/book')
 const Author = require('../models/author')
-const multer = require('multer')
-const fs = require('fs')
 
+const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif']
 
-const storage = multer.diskStorage({
-  destination: function(req, file, cb) {
-    cb(null, './public/uploads');
-  },
-  filename: function(req, file, cb) {
-    cb(null, file.originalname);
-  }
-});
-
-const upload = multer({storage: storage})
 
 router.get('/', async (req, res)=>{
 
@@ -47,9 +36,7 @@ router.get('/new', async (req, res)=>{
     renderBookPage(res, new Book())
 })
 
-router.post('/', upload.single('cover')/*WE WANT TO UPLOAD A FILE WITH NAME OF 'cover' */, async (req, res)=>{
-    // GET THE FILE NAME
-    //const fileName = req.file != null ? req.file.filename : null
+router.post('/', async (req, res)=>{
 
     const {title, author, publishDate, pages, cover, description} = req.body
 
@@ -60,24 +47,19 @@ router.post('/', upload.single('cover')/*WE WANT TO UPLOAD A FILE WITH NAME OF '
         createdAt: new Date(publishDate),
         publishDate: new Date(publishDate), // TO CONVERT THE DATE STRING CAME FROM THE REQEST
         pages: pages,
-        /* coverImageName: cover */
-        coverImageName: req.file.filename
+        coverImageName: /* req.file.filename */ 'xx'
     })
-
-    //console.log(title, author, publishDate, pages, description, req.file.filename)
-    //console.log(req)
+    
+    saveCover(book, cover)
+    
 
     try {
         const newBook = await book.save()
         /* res.redirect(`books/${newBook.id}`) */
         res.redirect(`books`)
-        console.log("Book Created")
-    } catch {
+    } catch (err){
 
-        if(req.file.filename != null){
-            // REMOVE THE IMAGE IF THERE's AN ERROR
-            removerCoverImage(req.file.originalname)
-        }
+        
         renderBookPage(res, book, true)
         
     }
@@ -94,14 +76,15 @@ const renderBookPage = async (res, book, hasError = false) =>{
     }
 }
 
-const removerCoverImage = (fileName) =>{
-    fs.unlink('./public/uploads/' + fileName, (err) =>{
-        if(err){
-            console.error(err)
-            return
-        }
-        console.log('File Removed')
-    })
+const saveCover = (book, coverEncoded) =>{
+  if (coverEncoded == null) return
+  const cover = JSON.parse(coverEncoded)
+  if (cover != null && imageMimeTypes.includes(cover.type)) {
+    book.coverImage = new Buffer.from(cover.data, 'base64')
+    book.coverImageType = cover.type
+    console.log("Save Func")
+
+  }
 }
 
 module.exports = router
