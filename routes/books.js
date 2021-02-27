@@ -65,6 +65,35 @@ router.post('/', async (req, res)=>{
     }
 })
 
+router.get('/:id', async (req, res)=>{
+    try {
+        const book = await Book.findById(req.params.id).populate('author').exec() // JOIN IN SQL TO HAVE ACCESS ON AUTHOR INFO
+        res.render('../views/books/show.ejs', {book: book})
+        console.log(book)
+    } catch (error) {
+        res.redirect('/')
+    }
+})
+
+router.get('/:id/edit', async (req, res)=>{
+    try {
+        const book = await Book.findById(req.params.id).populate('author').exec()
+        const authors = await Author.find({})
+        res.render('../views/books/edit.ejs', {book: book, authors: authors})
+        console.log(authors)
+    } catch (error) {
+        res.redirect('/')
+    }
+})
+
+router.put('/:id', (req, res)=>{
+    res.send('Edit Book')
+})
+
+router.delete('/:id', (req, res)=>{
+    res.send('Delete Book')
+})
+
 const renderBookPage = async (res, book, hasError = false) =>{
     try {
         const authors = await Author.find({})

@@ -20,7 +20,20 @@
 <% books.forEach(book=>{
     %>
     <div>
-        <h4><%= book.title %></h4>
+        <h3><%= book.title %></h3>
         <img height="450" width="350" src="<%= book.coverImagePath %>">
+        <h4>
+            Description: <%= book.description %>
+        </h4>
+        <h4>
+            Pages: <%= book.pages %>
+        </h4>
+        <h4>
+            Date Publish: <%= book.publishDate %>
+        </h4>
+        <h4>
+            Date Created: <%= book.createdAt %>
+        </h4>
+        <a href='/books/<%= book.id %>'>Edit</a>
     </div>
     <% })%>
