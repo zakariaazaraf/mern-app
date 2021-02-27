@@ -9,6 +9,8 @@ const app = express()
 
 const expressLayouts = require('express-ejs-layouts')
 const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
+
 /* const path = require('path')
 const Book = require('./models/book')
 const uploadPath = path.join('public', Book.coverImagesBasePath)
@@ -32,6 +34,9 @@ app.set('views', __dirname + "/views")
 app.set('layout', 'layouts/layout')
 app.use(expressLayouts)
 app.use(express.static('public'))
+
+// override with POST having ?_method=DELETE
+app.use(methodOverride('_method'))
 
 // HANDEL THE BOSY-PARSER
 app.use(bodyParser.urlencoded({limit: '10mb', extended: true}))

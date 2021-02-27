@@ -48,4 +48,24 @@ router.post('/', async (req, res) => {
     }
 })
 
+// GET ONE AUTHOR BY ID
+router.get('/:id', (req, res)=>{
+    res.send(`${req.params.id} Author Demened`)
+})
+
+// EDIT AUTHOR PAGE
+router.get('/:id/edit', (req, res)=>{
+    res.send(`${req.params.id} Author Page Edit`)
+})
+
+// EDIT THE AUTHOR
+router.put('/id', (req, res)=>{
+    res.send(`${req.params.id} Author Edited`)
+})
+
+// DELETE AUTHOR
+router.delete('/:id', (req, res)=>{
+    res.send(`${req.params.id} Author Deleted`)
+})
+
 module.exports = router
