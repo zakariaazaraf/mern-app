@@ -4,13 +4,13 @@ const router = express.Router()
 
 // REQUIRE THE AUTHOR MODEL FROM THE MODELS
 const Author = require('../models/author')
+const Book = require('../models/book')
 
 // ALL AUTHORS ROUTER
 router.get('/', async (req, res) =>{
 
     const serachName = {}
     if(req.method === 'GET' && req.query.author !== ''){
-        /* searchName.name = req.query.author */
         serachName.name = new RegExp(req.query.author, 'i')
     }
     try {
@@ -39,8 +39,7 @@ router.post('/', async (req, res) => {
 
     try {
         const newAuthor = await author.save()
-        //res.redirect(`newAuthor/${author.id}`) 
-        res.redirect(`authors`)
+        res.redirect(`/authors/${author.id}`)
     } catch (error) {
         res.render('authors/new', {
             Author: author, 
@@ -50,8 +49,16 @@ router.post('/', async (req, res) => {
 })
 
 // GET ONE AUTHOR BY ID
-router.get('/:id', (req, res)=>{
-    res.send(`${req.params.id} Author Demened`)
+router.get('/:id', async (req, res)=>{
+    const {id} = req.params
+    try {
+        const author = await Author.findById(id)
+        const books = await Book.find({author: id})
+        res.render('../views/authors/show.ejs', {author: author,books: books, id: id})
+        
+    } catch (error) {
+        res.redirect('/authors/')
+    }
 })
 
 // EDIT AUTHOR PAGE
