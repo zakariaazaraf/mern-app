@@ -23,7 +23,7 @@
     <div>
 
         <label for="publish-date">publish date:</label>
-        <input type='date' name='publishDate' id='publish-date' value='<%= book.publishDate%>'>
+        <input type='date' name='publishDate' id='publish-date' value='<%= book.publishDate.toISOString().split('T')[0]%>'>
     </div>
 
     <div>

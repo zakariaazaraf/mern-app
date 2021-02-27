@@ -15,10 +15,10 @@
             Pages: <%= book.pages %>
         </h4>
         <h4>
-            Date Publish: <%= book.publishDate %>
+            Date Publish: <%= book.publishDate.toDateString() %>
         </h4>
         <h4>
-            Date Created: <%= book.createdAt %>
+            Date Created: <%= book.createdAt.toDateString() %>
         </h4>
     </div>
     <a href='/books/<%= book.id %>/edit'>Edit</a>

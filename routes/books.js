@@ -65,10 +65,6 @@ router.post('/', async (req, res)=>{
 router.get('/:id', async (req, res)=>{
     try {
         const book = await Book.findById(req.params.id).populate('author').exec() // JOIN IN SQL TO HAVE ACCESS ON AUTHOR INFO
-        /* if(book.author == null ) book.author = {
-            id: '60357643eb82af2c9cb39e06',
-            name: 'shaimae'
-        } */
         res.render('../views/books/show.ejs', {book: book})
     } catch (error) {
         res.redirect('/')
@@ -94,7 +90,7 @@ router.put('/:id', async (req, res)=>{
         book.pages = pages
         book.publishDate = new Date(publishDate)
         book.author = author
-        saveCover(book, cover)
+        if(cover) saveCover(book, cover)
         await book.save()
         res.redirect(`/books/${book.id}`)
     } catch (error) {
