@@ -1,4 +1,5 @@
 const express = require('express')
+const author = require('../models/author')
 const router = express.Router()
 
 // REQUIRE THE AUTHOR MODEL FROM THE MODELS
@@ -54,13 +55,31 @@ router.get('/:id', (req, res)=>{
 })
 
 // EDIT AUTHOR PAGE
-router.get('/:id/edit', (req, res)=>{
-    res.send(`${req.params.id} Author Page Edit`)
+router.get('/:id/edit', async (req, res)=>{
+    try {
+        const author = await Author.findById(req.params.id)
+        res.render('../views/authors/edit.ejs', {author: author})
+    } catch (error) {
+        res.redirect('/authors')
+    }
 })
 
 // EDIT THE AUTHOR
-router.put('/id', (req, res)=>{
-    res.send(`${req.params.id} Author Edited`)
+router.put('/:id', async (req, res)=>{
+    const {id} = req.params
+    let author
+    try {
+        author = await Author.findById(id)
+        author.name = req.body.author
+        await author.save()
+        res.redirect(`/authors/${id}`)
+    } catch (error) {
+        if(author == null){
+            res.redirect('/')
+        }else{
+            res.render('authors/edit', {author: author, errorMessage: 'Error Editing Author'})
+        }
+    }
 })
 
 // DELETE AUTHOR

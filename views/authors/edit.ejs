@@ -1,0 +1,9 @@
+<h2>Edit Author</h2>
+<form action='/authors/<%= author.id %>?_method=put' method='post'>
+
+    <label for='author'>Name</label>
+    <!-- AUTHOR IN THIS LINE MEANS {Author.author} THE AUTHOR MODEL -->
+    <input type='text' id='author' name='author' value="<%= author.name %>">
+    <a href='/authors/<%= author.id %>'>Cancel</a>
+    <button type='submit'>Edit</button>
+</form>
