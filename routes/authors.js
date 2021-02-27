@@ -83,8 +83,20 @@ router.put('/:id', async (req, res)=>{
 })
 
 // DELETE AUTHOR
-router.delete('/:id', (req, res)=>{
-    res.send(`${req.params.id} Author Deleted`)
+router.delete('/:id', async (req, res)=>{
+    const {id} = req.params
+    let author
+    try {
+        author = await Author.findById(id)
+        await author.remove()
+        res.redirect('/authors')
+    } catch (error) {
+        if(author == null){
+            res.redirect('/')
+        }else{
+            res.redirect(`/authors/${id}`)
+        }
+    }
 })
 
 module.exports = router
