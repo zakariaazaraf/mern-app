@@ -51,25 +51,25 @@ router.post('/', async (req, res)=>{
     })
     
     saveCover(book, cover)
-    
 
     try {
         const newBook = await book.save()
-        /* res.redirect(`books/${newBook.id}`) */
-        res.redirect(`books`)
+        res.redirect(`books/${newBook.id}`)
+        //res.redirect(`books`)
     } catch (err){
-
-        
-        renderBookPage(res, book, true)
-        
+      
+        renderBookPage(res, book, true)        
     }
 })
 
 router.get('/:id', async (req, res)=>{
     try {
         const book = await Book.findById(req.params.id).populate('author').exec() // JOIN IN SQL TO HAVE ACCESS ON AUTHOR INFO
+        /* if(book.author == null ) book.author = {
+            id: '60357643eb82af2c9cb39e06',
+            name: 'shaimae'
+        } */
         res.render('../views/books/show.ejs', {book: book})
-        console.log(book)
     } catch (error) {
         res.redirect('/')
     }
@@ -80,18 +80,37 @@ router.get('/:id/edit', async (req, res)=>{
         const book = await Book.findById(req.params.id).populate('author').exec()
         const authors = await Author.find({})
         res.render('../views/books/edit.ejs', {book: book, authors: authors})
-        console.log(authors)
     } catch (error) {
         res.redirect('/')
     }
 })
 
-router.put('/:id', (req, res)=>{
-    res.send('Edit Book')
+router.put('/:id', async (req, res)=>{
+    try {
+        const {title, description, publishDate, pages, author, cover} = req.body
+        const book = await Book.findById(req.params.id)
+        book.title = title
+        book.description = description
+        book.pages = pages
+        book.publishDate = new Date(publishDate)
+        book.author = author
+        saveCover(book, cover)
+        await book.save()
+        res.redirect(`/books/${book.id}`)
+    } catch (error) {
+        res.redirect('/')
+    }
 })
 
-router.delete('/:id', (req, res)=>{
-    res.send('Delete Book')
+router.delete('/:id', async (req, res)=>{
+    try {
+        const book = await Book.findById(req.params.id)
+        await book.remove()
+        res.redirect('/books/')
+    } catch (error) {
+        res.redirect('/')
+        console.log(error)
+    }
 })
 
 const renderBookPage = async (res, book, hasError = false) =>{
@@ -111,8 +130,6 @@ const saveCover = (book, coverEncoded) =>{
   if (cover != null && imageMimeTypes.includes(cover.type)) {
     book.coverImage = new Buffer.from(cover.data, 'base64')
     book.coverImageType = cover.type
-    console.log("Save Func")
-
   }
 }
 

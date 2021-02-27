@@ -1,5 +1,5 @@
-<h2>Add New Book</h2>
-<form action='/books' method='POST'>
+<h2>Edit Book</h2>
+<form action='/books/<%= book.id %>?_method=PUT' method='POST'>
     <div>
         <label for='title'>title :</label>
         <input type='text' name='title' id='title' value='<%= book.title %>' />
@@ -34,7 +34,7 @@
 
     <div>
         <label for='cover'>cover image</label>
-        <input type='file' name='cover' class='filepond' id='cover' style="width:350px;height:450px">
+        <input type='file' name='cover' class='filepond' id='cover' value='<%= book.coverImagePath %>' style="width:350px;height:450px">
 
     </div>
 
@@ -44,7 +44,7 @@
     </div>
 
     <div>
-        <button type='submit'>create</button>
+        <button type='submit'>Edit</button>
         <button type='reset'>Cancel</button>
     </div>
 </form>

@@ -7,7 +7,7 @@ const bookSchema = new mongoose.Schema({
     publishDate:{ type: Date, required: true },
     pages:{ type: Number, required: true },
     createdAt:{ type: Date, required: true, default: Date.now() },
-    coverImageName:{ type: String, required: true },
+    //coverImageName:{ type: String, required: true },
     coverImage: { type: Buffer, required: true },
     coverImageType: { type: String, required: true }
 })
