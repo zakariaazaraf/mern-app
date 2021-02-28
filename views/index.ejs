@@ -1,11 +1,15 @@
 <h2>Recently added</h2>
-<div>
+<div class='books-container'>
     <% books.forEach(book =>{
         %>  
-            <h4><%= book.title %></h4>
-            <a href='/books/<%= book.id %>'>
-                <img height="450" width="350" src="<%= book.coverImagePath %>">
-            </a>
+            <div class='book'>
+                    <a href='/books/<%= book.id %>'>
+                        <img src="<%= book.coverImagePath %>">
+                    </a>  
+                    <h3><%= book.title %></h3>  
+                    <h4 class='author'><%= book.author.name %> . <span class='date'><%= book.publishDate.toDateString() %></span></h4>
+            </div>
+            
         <%
     })%>
 </div>
