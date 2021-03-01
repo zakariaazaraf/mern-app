@@ -1,6 +1,6 @@
 <div class="container">
 
-<h2>Add New Book</h2>
+<h2>edit Book</h2>
     <form action='/books/<%= book.id%>?_method=PUT' method='POST' class='new-book book-info-container'>
         <div class='book-image'>
             <label for='cover'>cover image</label>
@@ -36,7 +36,7 @@
             </div>
             <div class='control-btns'>
                 <button type='submit' class='btn'>edit</button>
-                <button type='reset' class='btn'>Cancel</button>
+                <a href='/books/<%= book.id %>' class='btn'>Cancel</a>
             </div>
         </div>
     </form>

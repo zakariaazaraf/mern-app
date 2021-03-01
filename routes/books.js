@@ -44,7 +44,7 @@ router.post('/', async (req, res)=>{
         title: title,
         description: description,
         author, author,
-        createdAt: new Date(publishDate),
+        createdAt: new Date(),
         publishDate: new Date(publishDate), // TO CONVERT THE DATE STRING CAME FROM THE REQEST
         pages: pages,
         coverImageName: /* req.file.filename */ 'xx'
