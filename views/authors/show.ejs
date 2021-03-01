@@ -1,9 +1,9 @@
 <div class="container">
 
 <h2><%=author.name%></h2>
-<a href='/authors/<%= id %>/edit'>Edit</a>
+<a href='/authors/<%= id %>/edit' class='btn'>Edit</a>
 <form action='/authors/<%= id %>?_method=DELETE' method='POST'>
-    <button type='submit'>Delete</button>
+    <button type='submit' class='btn'>Delete</button>
 </form>
 
 <% if(books.length > 0) {

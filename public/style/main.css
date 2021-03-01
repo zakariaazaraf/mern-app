@@ -10,7 +10,7 @@
 }
 
 body {
-  background-color: #161616;
+  background-color: #060606;
   color: #fff;
   font-size: 1.2rem;
   max-width: 1200px;
@@ -18,12 +18,28 @@ body {
 }
 
 .btn {
-  outline: none;
+  font-size: 1.2rem;
+  font-family: unset;
+  background-color: #fff;
+  color: #161616;
+  border: 1px solid transparent;
   padding: 0.5rem 1rem;
   border-radius: 7px;
-  border: none;
-  font-size: 1.2rem;
   text-transform: capitalize;
+  text-decoration: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.btn:hover {
+  background-color: #161616;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+label {
+  text-transform: capitalize;
+  font-size: 1.4rem;
 }
 
 /* START HEADER */
@@ -48,9 +64,10 @@ header a {
   color: #fff;
   text-decoration: none;
   padding: 0.5rem 1rem;
+  text-transform: capitalize;
 }
 
-header a:hover {
+header .nav-links a:hover {
   background-color: #9cf0e1;
   color: #161616;
   border-radius: 5px;
@@ -88,9 +105,10 @@ header a:hover {
   flex-grow: 1;
 }
 
+/* FILEPOND STYLE */
 #cover {
   width: 200px;
-  height: 300px;
+  height: 320px !important;
 }
 
 .book img {
@@ -106,12 +124,42 @@ header a:hover {
 form input:not([type="file"]),
 form textarea,
 form select {
-  outline: none;
-  border: none;
-  background: #9cf0e1;
   width: 500px;
   height: 40px;
+  color: #fff;
+  border: 1px solid #fff;
+  background: transparent;
   border-radius: 7px;
   font-size: 1.2rem;
   padding: 0 10px;
+  outline: none;
+}
+
+form textarea {
+  height: 150px;
+}
+
+form > * {
+  margin: 1rem 0;
+}
+
+/* Book Show */
+.book-info-container {
+  display: flex;
+}
+.book-info-container .book-info {
+  flex-grow: 1;
+}
+.book-info-container .book-info .control-btns {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.book-info-container .book-info .control-btns form > * {
+  margin: 0;
+}
+
+.book-info-container .book-info .control-btns .btn {
+  height: max-content;
+  margin: 0 0.4rem;
 }

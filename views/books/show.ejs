@@ -1,12 +1,14 @@
 <div class="container">
 
-    <h2>Book</h2>
-    
-        <div>
-            <h3>
-                <%= book.title %>
-            </h3>
+    <h2>Book information :</h2>
+    <div class="book-info-container">      
+        <div class="book-image">
             <img height="450" width="350" src="<%= book.coverImagePath %>">
+        </div>         
+        <div class='book-info'>
+            <h2>
+                <%= book.title %>
+            </h2>
             <h4>
                 Author: <%= book.author.name %>
             </h4>
@@ -22,11 +24,13 @@
             <h4>
                 Date Created: <%= book.createdAt.toDateString() %>
             </h4>
+            <div class='control-btns'>
+                <a href="/authors/<%= book.author.id%>" class='btn'>View</a>
+                <a href='/books/<%= book.id %>/edit' class='btn'>Edit</a>
+                <form action='/books/<%= book.id%>?_method=DELETE' method='POST'>
+                    <button type='submit' class='btn'>Delete</button>
+                </form>     
+            </div>
         </div>
-        <a href='/books/<%= book.id %>/edit'>Edit</a>
-        <form action='/books/<%= book.id%>?_method=DELETE' method='POST'>
-            <button type='submit' class='btn'>Delete</button>
-        </form>
-        <a href="/authors/<%= book.author.id%>" class='btn'>View Author</a>
-        
+    </div>
 </div>

@@ -4,12 +4,12 @@
 <form action='/authors' method='GET'>
     <label for='name'>Name :</label>
     <input type='text' name='author' id='name' value='<%= searchName.author %>'>
-    <button type='submit'>Search</button>
+    <button type='submit' class='btn'>Search</button>
 </form>
 <br>
 <% authors.forEach(author =>{
     %>
-        <div><%= author.name %></div>
+        <h2><%= author.name %></h2>
         <a href='/authors/<%= author.id %>' class='btn'>View</a>
         <a href='/authors/<%= author.id %>/edit' class='btn'>Edit</a>
         
