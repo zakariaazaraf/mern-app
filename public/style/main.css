@@ -17,6 +17,11 @@ body {
   margin: 0 auto;
 }
 
+h2,
+h3 {
+  text-transform: capitalize;
+}
+
 .btn {
   font-size: 1.2rem;
   font-family: unset;
@@ -38,8 +43,9 @@ body {
 }
 
 label {
-  text-transform: capitalize;
   font-size: 1.4rem;
+  margin-right: 1rem;
+  text-transform: capitalize;
 }
 
 /* START HEADER */
@@ -124,7 +130,7 @@ header .nav-links a:hover {
 form input:not([type="file"]),
 form textarea,
 form select {
-  width: 500px;
+  max-width: 500px;
   height: 40px;
   color: #fff;
   border: 1px solid #fff;
@@ -136,7 +142,7 @@ form select {
 }
 
 form textarea {
-  height: 150px;
+  height: 100px;
 }
 
 form > * {
@@ -147,10 +153,29 @@ form > * {
 .book-info-container {
   display: flex;
 }
+
+.book-info-container > *,
+.book-info-container .book-info > *:not(:first-child) {
+  margin: 1rem;
+}
+
 .book-info-container .book-info {
   flex-grow: 1;
 }
-.book-info-container .book-info .control-btns {
+
+.book-info-container .book-image {
+  height: 350px;
+  max-width: 260px;
+}
+
+.book-info-container .book-image img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+/* .book-info-container .book-info  */
+.control-btns {
   display: flex;
   justify-content: flex-end;
 }
@@ -159,7 +184,13 @@ form > * {
   margin: 0;
 }
 
-.book-info-container .book-info .control-btns .btn {
+.control-btns .btn {
   height: max-content;
   margin: 0 0.4rem;
+}
+
+/* Book New */
+
+.new-book .book-info > :first-child {
+  margin: 1rem;
 }

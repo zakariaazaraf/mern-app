@@ -10,13 +10,15 @@
 <% authors.forEach(author =>{
     %>
         <h2><%= author.name %></h2>
-        <a href='/authors/<%= author.id %>' class='btn'>View</a>
-        <a href='/authors/<%= author.id %>/edit' class='btn'>Edit</a>
-        
-        <!-- override with POST having ?_method=DELETE  -->
-        <form action='/authors/<%= author.id %>?_method=delete' method='POST'>
-            <button type='submit' class='btn'>Delete</button>
-        </form>
+        <div class='control-btns'>
+            <a href='/authors/<%= author.id %>' class='btn'>View</a>
+            <a href='/authors/<%= author.id %>/edit' class='btn'>Edit</a>
+            
+            <!-- override with POST having ?_method=DELETE  -->
+            <form action='/authors/<%= author.id %>?_method=delete' method='POST'>
+                <button type='submit' class='btn'>Delete</button>
+            </form>
+        </div>
     <%
 })%>
 </div>

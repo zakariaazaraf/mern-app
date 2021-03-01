@@ -1,38 +1,38 @@
 <div class="container">
 
 <h2><%=author.name%></h2>
-<a href='/authors/<%= id %>/edit' class='btn'>Edit</a>
-<form action='/authors/<%= id %>?_method=DELETE' method='POST'>
-    <button type='submit' class='btn'>Delete</button>
-</form>
+<div class="control-btns">
+    <a href='/authors/<%= id %>/edit' class='btn'>Edit</a>
+    <form action='/authors/<%= id %>?_method=DELETE' method='POST'>
+        <button type='submit' class='btn'>Delete</button>
+    </form>
+</div>
 
 <% if(books.length > 0) {
 
     %>
         <h2>
-            <%= author.name %> Books
+            <%= author.name %>'s Books
         </h2>
-        <% books.forEach(book=>{
-            %>
-            <h3>
-                <%= book.title %>
-            </h3>
-            <a href='/books/<%= book.id %>'>
-                <img height="450" width="350" src="<%= book.coverImagePath %>">
-            </a>
-            <h4>
-                <%= book.description %>
-            </h4>
-            <h4>
-                <%= book.publishDate.toDateString() %>
-            </h4>
-            <h4>
-                <%= book.pages %>
-            </h4>
-            <h4>
-                <%= book.createdAt.toDateString() %>
-            </h4>
-        <% }) %>
+        <div class='books-container'>
+            <% books.forEach(book=>{
+                %>
+                <div class='book'>
+                    <a href='/books/<%= book.id %>'>
+                        <img src="<%= book.coverImagePath %>">
+                    </a>
+                    <h3>
+                        <%= book.title %>
+                    </h3>
+                    <h4 class='author'>
+                        <span class='date'>
+                            <%= book.publishDate.toDateString() %>
+                        </span>
+                    </h4>
+                </div>
+        
+                <% })%>
+        </div>
     <%
 
 }%>

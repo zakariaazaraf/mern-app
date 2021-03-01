@@ -1,53 +1,43 @@
 <div class="container">
 
-<h2>Edit Book</h2>
-<form action='/books/<%= book.id %>?_method=PUT' method='POST'>
-    <div>
-        <label for='title'>title :</label>
-        <input type='text' name='title' id='title' value='<%= book.title %>' />
-    </div>
-
-    <div>
-        <label for='author'>author :</label>
-        <select name='author' id='author'>
-
-            <% authors.forEach(author => {
-                %>
-                <option value='<%= author.id %>'>
-                    <%= author.name %>
-                </option>
-                <% }) %>
-                    <option value=''>flan</option>
-                    <option value=''>3artlan</option>
-        </select>
-    </div>
-
-    <div>
-
-        <label for="publish-date">publish date:</label>
-        <input type='date' name='publishDate' id='publish-date' value='<%= book.publishDate.toISOString().split('T')[0]%>'>
-    </div>
-
-    <div>
-
-        <label for='pages'>page count:</label>
-        <input type='number' name='pages' id='pages' min='1' value='<%= book.pages %>'>
-    </div>
-
-    <div>
-        <label for='cover'>cover image</label>
-        <input type='file' name='cover' class='filepond' id='cover' value='<%= book.coverImagePath %>' style="width:350px;height:450px">
-
-    </div>
-
-    <div>
-        <label for='description'>description</label>
-        <textarea name='description' id='description'><%= book.description %></textarea>
-    </div>
-
-    <div>
-        <button type='submit' class='btn'>Edit</button>
-        <button type='reset' class='btn'>Cancel</button>
-    </div>
-</form>
+<h2>Add New Book</h2>
+    <form action='/books/<%= book.id%>?_method=PUT' method='POST' class='new-book book-info-container'>
+        <div class='book-image'>
+            <label for='cover'>cover image</label>
+            <input type='file' name='cover' class='filepond' id='cover' style="width:350px;height:450px">
+        </div>
+        <div class="book-info">
+            <div>
+                <label for='title'>title :</label>
+                <input type='text' name='title' id='title' value='<%= book.title %>'/>
+            </div>
+            <div>
+                <label for='author'>author :</label>
+                <select name='author' id='author'>
+                    <% authors.forEach(author => {
+                            %>
+                                <option value='<%= author.id %>'><%= author.name %></option>
+                            <%
+                        }) 
+                    %>
+                </select>
+            </div>
+            <div>
+                <label for="publish-date">publish date:</label>
+                <input type='date' name='publishDate' id='publish-date' value='<%= book.publishDate.toISOString().split('T')[0] %>'>
+            </div>
+            <div>
+                <label for='pages'>page count:</label>
+                <input type='number' name='pages' id='pages' min='1' value='<%= book.pages%>'>
+            </div>
+            <div>
+                <label for='description'>description</label>
+                <textarea name='description' id='description'><%= book.description %></textarea>
+            </div>
+            <div class='control-btns'>
+                <button type='submit' class='btn'>edit</button>
+                <button type='reset' class='btn'>Cancel</button>
+            </div>
+        </div>
+    </form>
 </div>
