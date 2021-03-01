@@ -92,7 +92,7 @@ header .nav-links a:hover {
 
 .book {
   max-width: 200px;
-  height: 350px;
+  min-height: 350px;
   display: flex;
   flex-direction: column;
   margin-bottom: 1.5rem;
