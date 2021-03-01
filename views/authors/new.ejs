@@ -1,9 +1,12 @@
-<h2>New Author</h2>
-<form action='/authors' method='post'>
-    
-    <label for='author'>Name</label>
-    <!-- AUTHOR IN THIS LINE MEANS {Author.author} THE AUTHOR MODEL -->
-    <input type='text' id='author' name='author' value="<%= Author.name %>">
-    <a href='/authors'>Cancel</a>
-    <button type='submit'>Create</button>
-</form>
+<div class="container">
+
+    <h2>New Author</h2>
+    <form action='/authors' method='post'>
+        
+        <label for='author'>Name</label>
+        <!-- AUTHOR IN THIS LINE MEANS {Author.author} THE AUTHOR MODEL -->
+        <input type='text' id='author' name='author' value="<%= Author.name %>">
+        <a href='/authors' class='btn'>Cancel</a>
+        <button type='submit' class='btn'>Create</button>
+    </form>
+</div>

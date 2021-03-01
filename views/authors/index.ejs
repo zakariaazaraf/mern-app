@@ -1,3 +1,5 @@
+<div class="container">
+
 <h2>All Authors</h2>
 <form action='/authors' method='GET'>
     <label for='name'>Name :</label>
@@ -8,12 +10,13 @@
 <% authors.forEach(author =>{
     %>
         <div><%= author.name %></div>
-        <a href='/authors/<%= author.id %>'>View</a>
-        <a href='/authors/<%= author.id %>/edit'>Edit</a>
+        <a href='/authors/<%= author.id %>' class='btn'>View</a>
+        <a href='/authors/<%= author.id %>/edit' class='btn'>Edit</a>
         
         <!-- override with POST having ?_method=DELETE  -->
         <form action='/authors/<%= author.id %>?_method=delete' method='POST'>
-            <button type='submit'>Delete</button>
+            <button type='submit' class='btn'>Delete</button>
         </form>
     <%
 })%>
+</div>

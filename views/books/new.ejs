@@ -1,3 +1,5 @@
+<div class="container">
+
 <h2>Add New Book</h2>
 <form action='/books' method='POST'>
     <div>
@@ -13,9 +15,8 @@
                 %>
                     <option value='<%= author.id %>'><%= author.name %></option>
                 <%
-            }) %>
-            <option value=''>flan</option>
-            <option value=''>3artlan</option>
+            }) 
+            %>
         </select>
     </div>
 
@@ -43,7 +44,8 @@
     </div>
 
     <div>
-        <button type='submit'>create</button>
-        <button type='reset'>Cancel</button>
+        <button type='submit' class='btn'>create</button>
+        <button type='reset' class='btn'>Cancel</button>
     </div>
 </form>
+</div>

@@ -1,3 +1,5 @@
+<div class="container">
+
 <h2><%=author.name%></h2>
 <a href='/authors/<%= id %>/edit'>Edit</a>
 <form action='/authors/<%= id %>?_method=DELETE' method='POST'>
@@ -22,16 +24,17 @@
                 <%= book.description %>
             </h4>
             <h4>
-                <%= book.publishDate %>
+                <%= book.publishDate.toDateString() %>
             </h4>
             <h4>
                 <%= book.pages %>
             </h4>
             <h4>
-                <%= book.createdAt %>
+                <%= book.createdAt.toDateString() %>
             </h4>
         <% }) %>
     <%
 
 }%>
 
+</div>
