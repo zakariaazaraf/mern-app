@@ -166,6 +166,7 @@ form > * {
 .book-info-container .book-image {
   height: 350px;
   max-width: 260px;
+  min-width: 240px;
 }
 
 .book-info-container .book-image img {
